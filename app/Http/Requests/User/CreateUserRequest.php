@@ -4,7 +4,7 @@ namespace App\Http\Requests\User;
 
 use App\Http\Requests\BaseFormRequest;
 
-class RegisterRequest extends BaseFormRequest
+class CreateUserRequest extends BaseFormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -22,9 +22,10 @@ class RegisterRequest extends BaseFormRequest
     public function rules(): array
     {
         return [
+            'role' => ['required', 'in:admin,user'],
             'email' => ['required', 'string', 'email', 'max:255'],
             'name' => ['required', 'string', 'max:255'],
-            'username' => ['nullable', 'string', 'max:255'],
+            'username' => ['required', 'string', 'max:255'],
             'password' => ['required', 'string', 'min:8'],
         ];
     }

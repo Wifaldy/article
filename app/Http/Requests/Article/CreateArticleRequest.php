@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Http\Requests\User;
+namespace App\Http\Requests\Article;
 
 use App\Http\Requests\BaseFormRequest;
 
-class RegisterRequest extends BaseFormRequest
+class CreateArticleRequest extends BaseFormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -22,10 +22,8 @@ class RegisterRequest extends BaseFormRequest
     public function rules(): array
     {
         return [
-            'email' => ['required', 'string', 'email', 'max:255'],
-            'name' => ['required', 'string', 'max:255'],
-            'username' => ['nullable', 'string', 'max:255'],
-            'password' => ['required', 'string', 'min:8'],
+            'title' => ['required', 'string', 'max:100'],
+            'description' => ['required', 'string'],
         ];
     }
 }
