@@ -3,11 +3,13 @@
 namespace App\Http\Controllers\Api\V1\Article;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Article\AddCategoryRequest;
 use App\Http\Requests\Article\CreateArticleRequest;
 use App\Http\Requests\Article\UpdateArticleRequest;
 use App\Services\Article\ArticleService;
-use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
+use Tymon\JWTAuth\Facades\JWTAuth;
 
 class ArticleController extends Controller
 {
@@ -30,7 +32,8 @@ class ArticleController extends Controller
     public function store(CreateArticleRequest $request)
     {
         try {
-            $article = $this->articleService->store($request->validated());
+            $userId = JWTAuth::user()->id;
+            $this->articleService->store($request->validated(), $userId);
             return response()->json(['message' => 'Article created successfully'], 201);
         } catch (\Exception $exception) {
             Log::info($exception->getMessage());
@@ -38,10 +41,25 @@ class ArticleController extends Controller
         }
     }
 
+    public function addCategory(AddCategoryRequest $request, string $id)
+    {
+        try {
+            DB::beginTransaction();
+            $userId = JWTAuth::user()->id;
+            $this->articleService->addCategory($id, $request->validated(), $userId);
+            DB::commit();
+            return response()->json(['message' => 'Category added successfully'], 201);
+        } catch (\Exception $exception) {
+            DB::rollBack();
+            return response()->json(['message' => $exception->getMessage()], $exception->getCode() ?: 500);
+        }
+    }
+
     public function update(UpdateArticleRequest $request, string $id)
     {
         try {
-            $article = $this->articleService->update($id, $request->validated());
+            $userId = JWTAuth::user()->id;
+            $this->articleService->update($id, $request->validated(), $userId);
             return response()->json(['message' => 'Article updated successfully']);
         } catch (\Exception $exception) {
             return response()->json(['message' => $exception->getMessage()], $exception->getCode() ?: 500);

@@ -15,4 +15,14 @@ class ArticleHasArticleCategory extends Model
         'article_id',
         'article_category_id'
     ];
+
+    public function article()
+    {
+        return $this->belongsTo(Article::class, 'article_id', 'id');
+    }
+
+    public function articleCategory()
+    {
+        return $this->belongsTo(ArticleCategory::class, 'article_category_id', 'id');
+    }
 }

@@ -10,7 +10,7 @@ class ArticleRepository implements ArticleRepositoryInterface
 
   public function findAll()
   {
-    return Article::all();
+    return Article::with(['articleHasArticleCategories.articleCategory'])->get();
   }
   public function findById(string $id)
   {
