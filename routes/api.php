@@ -12,7 +12,7 @@ use Illuminate\Support\Facades\Route;
 // })->middleware('auth:sanctum');
 
 Route::get('/health', function () {
-    return "Server is up boys";
+    return "Server is up";
 });
 
 Route::group(['prefix' => 'auth'], function () {
