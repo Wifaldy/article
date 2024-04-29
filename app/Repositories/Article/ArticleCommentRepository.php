@@ -12,6 +12,11 @@ class ArticleCommentRepository implements ArticleCommentRepositoryInterface
     return ArticleComment::all();
   }
 
+  public function findAllByArticleId(string $articleId)
+  {
+    return ArticleComment::where('article_id', $articleId)->get();
+  }
+
   public function findById(string $id)
   {
     try {

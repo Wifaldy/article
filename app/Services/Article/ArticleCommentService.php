@@ -22,6 +22,12 @@ class ArticleCommentService
     return $this->articleCommentRepository->findAll();
   }
 
+  public function findAllByArticleId(string $articleId)
+  {
+    $this->articleService->findById($articleId);
+    return $this->articleCommentRepository->findAllByArticleId($articleId);
+  }
+
   public function findById(string $id)
   {
     $articleComment =  $this->articleCommentRepository->findById($id);

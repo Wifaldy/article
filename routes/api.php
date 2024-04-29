@@ -47,6 +47,7 @@ Route::group(['prefix' => 'article-category'], function () {
 
 Route::group(['prefix' => 'article-comment'], function () {
     Route::get('/', [ArticleCommentController::class, 'index']);
+    Route::get('/article/{id}', [ArticleCommentController::class, 'findAllByArticleId']);
     Route::get('/{id}', [ArticleCommentController::class, 'show']);
     Route::post('/{articleId}', [ArticleCommentController::class, 'store'])->middleware('auth');
     Route::put('/{id}', [ArticleCommentController::class, 'update'])->middleware('auth');

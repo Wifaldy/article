@@ -27,6 +27,16 @@ class ArticleCommentController extends Controller
         ]);
     }
 
+    public function findAllByArticleId(string $articleId)
+    {
+        try {
+            $articleComments = $this->articleCommentService->findAllByArticleId($articleId);
+            return response()->json(['message' => 'Fetch Success', 'articleComments' => $articleComments]);
+        } catch (\Exception $exception) {
+            return response()->json(['message' => $exception->getMessage()], $exception->getCode() ?: 500);
+        }
+    }
+
     public function store(CreateArticleCommentRequest $request, string $articleId)
     {
         try {

@@ -7,4 +7,5 @@ use App\RepositoryInterfaces\BaseRepositoryInterface;
 interface ArticleCommentRepositoryInterface extends BaseRepositoryInterface
 {
   public function findAll();
+  public function findAllByArticleId(string $articleId);
 }
