@@ -5,10 +5,8 @@ namespace App\Http\Controllers\Api\V1\Auth;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\User\LoginRequest;
 use App\Http\Requests\User\RegisterRequest;
-use App\RepositoryInterfaces\User\UserRepositoryInterface;
 use App\Services\User\UserService;
 use Illuminate\Http\JsonResponse;
-use Illuminate\Http\Request;
 
 class AuthController extends Controller
 {
